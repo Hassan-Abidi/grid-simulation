@@ -29,6 +29,23 @@ df_load = pd.DataFrame({
 df_load.to_csv('profiles/base_load.csv', index=False)
 print("Generated base_load.csv")
 
+# PV generation profile (kW)
+# Solar generation follows typical bell curve during daylight hours
+pv_generation = np.array([
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0,  # 0-5: no sun
+    0.5, 1.5, 3.0, 4.5, 5.5, 6.0,  # 6-11: morning ramp
+    6.2, 6.0, 5.5, 4.5, 3.0, 1.5,  # 12-17: afternoon decline
+    0.5, 0.0, 0.0, 0.0, 0.0, 0.0   # 18-23: no sun
+])
+
+# Save PV generation profile
+df_pv = pd.DataFrame({
+    'hour': hours,
+    'pv_kw': pv_generation
+})
+df_pv.to_csv('profiles/pv_generation.csv', index=False)
+print("Generated pv_generation.csv")
+
 if __name__ == "__main__":
     pass
 
