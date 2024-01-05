@@ -46,6 +46,18 @@ df_pv = pd.DataFrame({
 df_pv.to_csv('profiles/pv_generation.csv', index=False)
 print("Generated pv_generation.csv")
 
+# Battery specifications
+battery_capacity_kwh = 10.0  # 10 kWh battery
+battery_max_power_kw = 5.0   # 5 kW max charge/discharge rate
+
+# Save battery specs
+df_battery = pd.DataFrame({
+    'parameter': ['capacity_kwh', 'max_power_kw'],
+    'value': [battery_capacity_kwh, battery_max_power_kw]
+})
+df_battery.to_csv('profiles/battery_specs.csv', index=False)
+print("Generated battery_specs.csv")
+
 if __name__ == "__main__":
     pass
 
