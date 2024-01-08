@@ -20,6 +20,17 @@ def calculate_net_load(base_load, pv_gen):
     net_load = base_load['load_kw'].values - pv_gen['pv_kw'].values
     return net_load
 
+def initialize_battery(battery_specs):
+    """Initialize battery state."""
+    capacity = battery_specs[battery_specs['parameter'] == 'capacity_kwh']['value'].values[0]
+    max_power = battery_specs[battery_specs['parameter'] == 'max_power_kw']['value'].values[0]
+    initial_soc = capacity * 0.5  # Start at 50% state of charge
+    return {
+        'capacity_kwh': capacity,
+        'max_power_kw': max_power,
+        'soc_kwh': initial_soc
+    }
+
 def main():
     print("Distribution Grid Simulation Starting...")
     
@@ -30,6 +41,10 @@ def main():
     # Calculate net load
     net_load = calculate_net_load(base_load, pv_gen)
     print(f"Net load range: {net_load.min():.2f} to {net_load.max():.2f} kW")
+    
+    # Initialize battery
+    battery = initialize_battery(battery_specs)
+    print(f"Battery initialized: {battery['capacity_kwh']} kWh capacity, {battery['soc_kwh']} kWh initial SOC")
 
 if __name__ == "__main__":
     main()
