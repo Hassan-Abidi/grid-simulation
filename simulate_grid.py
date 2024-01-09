@@ -45,6 +45,24 @@ def main():
     # Initialize battery
     battery = initialize_battery(battery_specs)
     print(f"Battery initialized: {battery['capacity_kwh']} kWh capacity, {battery['soc_kwh']} kWh initial SOC")
+    
+    # Simulation arrays
+    hours = base_load['hour'].values
+    battery_power = np.zeros(24)  # Battery charge/discharge power (kW)
+    battery_soc = np.zeros(24)    # Battery state of charge (kWh)
+    grid_power = np.zeros(24)     # Power from/to grid (kW)
+    
+    print("\nStarting 24-hour simulation...")
+    for hour in hours:
+        idx = int(hour)
+        # Store current battery SOC
+        battery_soc[idx] = battery['soc_kwh']
+        
+        # Placeholder: no battery control yet
+        battery_power[idx] = 0.0
+        grid_power[idx] = net_load[idx]
+    
+    print("Simulation complete.")
 
 if __name__ == "__main__":
     main()
