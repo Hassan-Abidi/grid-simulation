@@ -52,6 +52,10 @@ def main():
     battery_soc = np.zeros(24)    # Battery state of charge (kWh)
     grid_power = np.zeros(24)     # Power from/to grid (kW)
     
+    # Calculate baseline peak (without battery)
+    baseline_peak = np.max(np.abs(net_load))
+    print(f"Baseline peak power: {baseline_peak:.2f} kW")
+    
     print("\nStarting 24-hour simulation...")
     for hour in hours:
         idx = int(hour)
