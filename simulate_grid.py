@@ -67,6 +67,16 @@ def main():
         grid_power[idx] = net_load[idx]
     
     print("Simulation complete.")
+    
+    # Calculate final peak with battery
+    final_peak = np.max(np.abs(grid_power))
+    peak_reduction = baseline_peak - final_peak
+    peak_reduction_pct = (peak_reduction / baseline_peak) * 100 if baseline_peak > 0 else 0
+    
+    print(f"\nResults:")
+    print(f"  Baseline peak: {baseline_peak:.2f} kW")
+    print(f"  Final peak: {final_peak:.2f} kW")
+    print(f"  Peak reduction: {peak_reduction:.2f} kW ({peak_reduction_pct:.1f}%)")
 
 if __name__ == "__main__":
     main()
