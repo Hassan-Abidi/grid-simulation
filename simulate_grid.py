@@ -31,6 +31,23 @@ def initialize_battery(battery_specs):
         'soc_kwh': initial_soc
     }
 
+def battery_control(net_load_hour, battery, threshold=6.0):
+    """Simple battery control rule to reduce peak load.
+    
+    Args:
+        net_load_hour: Net load for current hour (kW)
+        battery: Battery state dict
+        threshold: Load threshold above which battery discharges (kW)
+    
+    Returns:
+        battery_power: Positive for discharge, negative for charge (kW)
+    """
+    battery_power = 0.0
+    
+    # Placeholder for control logic
+    
+    return battery_power
+
 def main():
     print("Distribution Grid Simulation Starting...")
     
