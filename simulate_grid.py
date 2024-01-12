@@ -52,6 +52,15 @@ def battery_control(net_load_hour, battery, threshold=6.0):
         max_discharge = min(battery['max_power_kw'], battery['soc_kwh'])
         battery_power = min(desired_discharge, max_discharge)
     
+    # Charge battery when net load is low or negative (excess PV)
+    elif net_load_hour < 2.0:
+        # Calculate desired charge power
+        desired_charge = 2.0 - net_load_hour
+        # Limit by battery max power and available capacity
+        available_capacity = battery['capacity_kwh'] - battery['soc_kwh']
+        max_charge = min(battery['max_power_kw'], available_capacity)
+        battery_power = -min(desired_charge, max_charge)  # Negative for charging
+    
     return battery_power
 
 def main():
