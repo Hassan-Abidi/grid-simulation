@@ -44,7 +44,13 @@ def battery_control(net_load_hour, battery, threshold=6.0):
     """
     battery_power = 0.0
     
-    # Placeholder for control logic
+    # Discharge battery when net load is high
+    if net_load_hour > threshold:
+        # Calculate desired discharge power
+        desired_discharge = net_load_hour - threshold
+        # Limit by battery max power and available energy
+        max_discharge = min(battery['max_power_kw'], battery['soc_kwh'])
+        battery_power = min(desired_discharge, max_discharge)
     
     return battery_power
 
