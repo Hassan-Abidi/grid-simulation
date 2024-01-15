@@ -94,9 +94,15 @@ def main():
         # Store current battery SOC
         battery_soc[idx] = battery['soc_kwh']
         
-        # Placeholder: no battery control yet
-        battery_power[idx] = 0.0
-        grid_power[idx] = net_load[idx]
+        # Apply battery control
+        battery_power[idx] = battery_control(net_load[idx], battery)
+        
+        # Update battery SOC (1 hour timestep)
+        battery['soc_kwh'] -= battery_power[idx]  # Discharge decreases SOC
+        battery['soc_kwh'] = np.clip(battery['soc_kwh'], 0, battery['capacity_kwh'])
+        
+        # Calculate grid power
+        grid_power[idx] = net_load[idx] - battery_power[idx]
     
     print("Simulation complete.")
     
