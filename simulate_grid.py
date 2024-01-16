@@ -111,10 +111,20 @@ def main():
     peak_reduction = baseline_peak - final_peak
     peak_reduction_pct = (peak_reduction / baseline_peak) * 100 if baseline_peak > 0 else 0
     
+    # Calculate congestion proxy (sum of squared power flows)
+    baseline_congestion = np.sum(net_load ** 2)
+    final_congestion = np.sum(grid_power ** 2)
+    congestion_reduction = baseline_congestion - final_congestion
+    congestion_reduction_pct = (congestion_reduction / baseline_congestion) * 100 if baseline_congestion > 0 else 0
+    
     print(f"\nResults:")
     print(f"  Baseline peak: {baseline_peak:.2f} kW")
     print(f"  Final peak: {final_peak:.2f} kW")
     print(f"  Peak reduction: {peak_reduction:.2f} kW ({peak_reduction_pct:.1f}%)")
+    print(f"\n  Congestion proxy (sum of squared flows):")
+    print(f"    Baseline: {baseline_congestion:.2f}")
+    print(f"    Final: {final_congestion:.2f}")
+    print(f"    Reduction: {congestion_reduction:.2f} ({congestion_reduction_pct:.1f}%)")
 
 if __name__ == "__main__":
     main()
