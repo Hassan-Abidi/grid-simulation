@@ -31,7 +31,7 @@ def initialize_battery(battery_specs):
         'soc_kwh': initial_soc
     }
 
-def battery_control(net_load_hour, battery, threshold=6.0):
+def battery_control(net_load_hour, battery, threshold=6.0, efficiency=0.95):
     """Simple battery control rule to reduce peak load.
     
     Args:
