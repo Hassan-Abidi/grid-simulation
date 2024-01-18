@@ -76,6 +76,14 @@ def plot_results(hours, base_load, pv_gen, net_load, battery_power, grid_power, 
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
     
+    # Plot 2: Battery operation
+    axes[1].plot(hours, battery_power, label='Battery Power', linewidth=2, color='orange')
+    axes[1].axhline(y=0, color='k', linestyle='-', linewidth=0.5)
+    axes[1].set_ylabel('Power (kW)')
+    axes[1].set_title('Battery Operation (Positive=Discharge, Negative=Charge)')
+    axes[1].legend()
+    axes[1].grid(True, alpha=0.3)
+    
     plt.tight_layout()
     plt.savefig('simulation_results.png', dpi=150)
     print("\nPlot saved as simulation_results.png")
