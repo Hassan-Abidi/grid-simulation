@@ -63,6 +63,23 @@ def battery_control(net_load_hour, battery, threshold=6.0, efficiency=0.95):
     
     return battery_power
 
+def plot_results(hours, base_load, pv_gen, net_load, battery_power, grid_power, battery_soc):
+    """Plot simulation results."""
+    fig, axes = plt.subplots(3, 1, figsize=(12, 10))
+    
+    # Plot 1: Load and generation
+    axes[0].plot(hours, base_load, label='Base Load', linewidth=2)
+    axes[0].plot(hours, pv_gen, label='PV Generation', linewidth=2)
+    axes[0].plot(hours, net_load, label='Net Load', linewidth=2, linestyle='--')
+    axes[0].set_ylabel('Power (kW)')
+    axes[0].set_title('Load and Generation Profiles')
+    axes[0].legend()
+    axes[0].grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig('simulation_results.png', dpi=150)
+    print("\nPlot saved as simulation_results.png")
+
 def main():
     print("Distribution Grid Simulation Starting...")
     
