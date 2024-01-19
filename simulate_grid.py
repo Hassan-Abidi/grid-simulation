@@ -163,6 +163,10 @@ def main():
     print(f"    Baseline: {baseline_congestion:.2f}")
     print(f"    Final: {final_congestion:.2f}")
     print(f"    Reduction: {congestion_reduction:.2f} ({congestion_reduction_pct:.1f}%)")
+    
+    # Generate plots
+    plot_results(hours, base_load['load_kw'].values, pv_gen['pv_kw'].values, 
+                 net_load, battery_power, grid_power, battery_soc)
 
 if __name__ == "__main__":
     main()
