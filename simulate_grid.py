@@ -84,6 +84,19 @@ def plot_results(hours, base_load, pv_gen, net_load, battery_power, grid_power, 
     axes[1].legend()
     axes[1].grid(True, alpha=0.3)
     
+    # Plot 3: Grid power and battery SOC
+    ax3_twin = axes[2].twinx()
+    axes[2].plot(hours, grid_power, label='Grid Power', linewidth=2, color='green')
+    axes[2].set_ylabel('Grid Power (kW)', color='green')
+    axes[2].set_xlabel('Hour of Day')
+    axes[2].set_title('Grid Power and Battery State of Charge')
+    axes[2].tick_params(axis='y', labelcolor='green')
+    axes[2].grid(True, alpha=0.3)
+    
+    ax3_twin.plot(hours, battery_soc, label='Battery SOC', linewidth=2, color='red', linestyle='--')
+    ax3_twin.set_ylabel('Battery SOC (kWh)', color='red')
+    ax3_twin.tick_params(axis='y', labelcolor='red')
+    
     plt.tight_layout()
     plt.savefig('simulation_results.png', dpi=150)
     print("\nPlot saved as simulation_results.png")
