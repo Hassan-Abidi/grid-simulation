@@ -167,6 +167,19 @@ def main():
     # Generate plots
     plot_results(hours, base_load['load_kw'].values, pv_gen['pv_kw'].values, 
                  net_load, battery_power, grid_power, battery_soc)
+    
+    # Export results to CSV
+    results_df = pd.DataFrame({
+        'hour': hours,
+        'base_load_kw': base_load['load_kw'].values,
+        'pv_generation_kw': pv_gen['pv_kw'].values,
+        'net_load_kw': net_load,
+        'battery_power_kw': battery_power,
+        'battery_soc_kwh': battery_soc,
+        'grid_power_kw': grid_power
+    })
+    results_df.to_csv('simulation_results.csv', index=False)
+    print("Results exported to simulation_results.csv")
 
 if __name__ == "__main__":
     main()
